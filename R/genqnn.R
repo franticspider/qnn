@@ -158,14 +158,27 @@ qnn.summarize <- function(x){
 #' @export
 
 qnn.activity <- function(x, scale=FALSE){
+    # Calculate the total population at each time step (each member of x@tracks is the popdy of a single species)
 	population.per.time <- apply(x@tracks, 1, sum)
+
+    # Calculate the proportion of each species at each time step
 	species.proportions <- sweep(x@tracks, 1, population.per.time, FUN="/")
+
+    # Expected proportions are the proportions at the last time step
 	expected.species.proportions.per.time <- rBind(rep(NA, nspecies(x)), species.proportions[1:(nrow(species.proportions) - 1),])
+
+    # Substact expected from observed
 	diff.expected <- (species.proportions - expected.species.proportions.per.time)
 	diff.expected[diff.expected < 0] <- 0
+
+    # square any positive result
 	diff.expected <- diff.expected ^ 2
+
+    # scale, if requested as an argument
 	if(identical(scale, TRUE)) diff.expected <- diff.expected * population.per.time
 	output <- as(x, "popdat")
+
+    # return the result as another popdy object
 	output@tracks <- as(diff.expected, "dgCMatrix")
 	return(output)
 }
