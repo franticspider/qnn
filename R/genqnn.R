@@ -71,7 +71,7 @@ setMethod("plot", signature(x="popdy", y="missing"), function(x, col.fun=rainbow
 	}
 	if(identical(draw.box, TRUE)) box()
 })
-sink(NULL)
+#sink(NULL)
 
 
 
@@ -171,6 +171,8 @@ qnn.activity <- function(x, scale=FALSE){
 	diff.expected <- (species.proportions - expected.species.proportions.per.time)
 	diff.expected[diff.expected < 0] <- 0
 
+    diff.expected[1,] <- 0
+
     # square any positive result
 	diff.expected <- diff.expected ^ 2
 
@@ -180,6 +182,10 @@ qnn.activity <- function(x, scale=FALSE){
 
     # return the result as another popdy object
 	output@tracks <- as(diff.expected, "dgCMatrix")
+
+    # get rid of the nans:
+    #output@tracks[is.nan(output@tracks)] = 0
+
 	return(output)
 }
 

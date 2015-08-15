@@ -1,9 +1,10 @@
 
 
-# TODO: This needs to be integrated with the popdy objects so we don't have to re-read from file
-plot.onepop <- function(infn,outfn,w,h, col.fun=rainbow){
 
-	x	<- read.table(infn,sep=",", col.names=c('time', 'species', 'count'))
+
+plot.popdy <- function(x, col.fun=rainbow){
+
+
 	time.lim <- range(x$time)
 	valid.species <- unique(x$species)
 	colours <- col.fun(length(valid.species))
@@ -23,4 +24,57 @@ plot.onepop <- function(infn,outfn,w,h, col.fun=rainbow){
 	title(xlab=expression(time%*%10^3))
 	box()
 	# dev.off()
+
+
 }
+
+
+plot.popdy2 <-
+# setGeneric("plot")
+# setMethod("plot", signature(x="popcount", y="missing"), 
+# function(x, col=rainbow, xlim=range(times(x)), ylim=c(0, max(tracks(x))), 
+# xlab="Time", ylab="Count", epochs=NA, epoch.col=cm.colors, epoch.border=NA, 
+# plot.zero=FALSE, lines=TRUE, ...)
+function(x, xlab="Time", ylab="Count", epochs=NA, epoch.col=cm.colors, epoch.border=NA, 
+plot.zero=FALSE, lines=TRUE, col.fun=rainbow)
+{
+    xlim = range(x@times)
+    ylim = c(0, max(x@tracks))
+	colours <- col.fun(ncol(x@tracks))
+
+	plot(NA, xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab     )#, ...)
+
+    #sapply(1:, function(i){
+
+    for(j in 1:ncol(x@tracks)){
+		lines(x=x@times, y=x@tracks[,j], col=colours[j])
+	}
+
+
+
+#	if(!missing(epochs)){
+#		if(is.function(epoch.col)) 
+#            epoch.colours <- epoch.col(nrow(epochs)) 
+#        else 
+#            epoch.colours <- rep(epoch.col, length.out=nrow(epochs))
+#		rect(xleft=epochs$start, ybottom=par("usr")[3], xright=epochs$end, ytop=par("usr")[4], col=epoch.colours, border=epoch.border)
+	#}
+	#if(identical(lines, TRUE)) lines(x, col=col, plot.zero=plot.zero)
+}#)
+
+
+
+
+
+
+# TODO: This needs to be integrated with the popdy objects 
+# so we don't have to re-read from file
+# (doesn't use the popdy structure...)
+plot.popdy.file <- function(infn,outfn,w,h, col.fun=rainbow){
+
+	x	<- read.table(infn,sep=",", col.names=c('time', 'species', 'count'))
+    plot.popdy(x, col.fun)
+}
+
+
+

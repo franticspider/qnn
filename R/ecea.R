@@ -12,28 +12,29 @@
 ecea.activity <- function(x, scale=FALSE){
 
     ##################
-    #TODO:
-    #Seeds = species that exist at first timestep  #these will be excluded from the measure
+    # TODO:
+    # Seeds = species that exist at first timestep  
+    # these will be excluded from the measure
 
-    #Main part, for a given species from Seeds+1:end (i.e. excluding seeds)
+    # Main part, for a given species from Seeds+1:end (i.e. excluding seeds)
 
-    #Take in the popdy file
-    #Popvalue(t=0) = 0
-    #Popchange(t=0) = 0
+    # Take in the popdy file
+    # Popvalue(t=0) = 0
+    # Popchange(t=0) = 0
 
-    #For t = each popvalue of a species (chronologically)
-    #Popvalue(t) = population of whatever species
-    #If Popvalue(t) != Popvalue(t-1)
-    #Popchange++
-    #Endif
+    # For t = each popvalue of a species (chronologically)
+    # Popvalue(t) = population of whatever species
+    # If Popvalue(t) != Popvalue(t-1)
+    # Popchange++
+    # Endif
 
-    #DescriptiveVariableName(t) = (Popvalue(t))^2 / Popchange(t)
+    # DescriptiveVariableName(t) = (Popvalue(t))^2 / Popchange(t)
 
-    #The next step gives the answer for THIS species
-    #NearlyFinishedMeasureVaribale = max(DescriptiveVariableName)
+    # The next step gives the answer for THIS species
+    # NearlyFinishedMeasureVaribale = max(DescriptiveVariableName)
 
-    #To get the answer for the run
-    #FinishedMeasure = sum(NearlyFinishedMeasureVaribale(all species)) - NumberOfSpecies
+    # To get the answer for the run
+    # FinishedMeasure = sum(NearlyFinishedMeasureVaribale(all species)) - NumberOfSpecies
     ###################
     # VERSION 2 (same as above, but easier)
 
@@ -65,36 +66,44 @@ ecea.activity <- function(x, scale=FALSE){
     # TODO: sparsify the zeros: 
 
     #get the max values
-    d = apply(c,2,max)
+    #d = apply(c,2,max)
 
-    return(d)
+    #Finally, coerce c into x
+
+    output <- x
+
+	output@tracks <- as(c, "dgCMatrix")
+
+
+
+    return(output)
 
     ##########################
     # QNN (for reference):
 
-#    # Calculate the total population at each time step (each member of x@tracks is the popdy of a single species)
-#	population.per.time <- apply(x@tracks, 1, sum)
+    #    # Calculate the total population at each time step (each member of x@tracks is the popdy of a single species)
+    #	population.per.time <- apply(x@tracks, 1, sum)
 
-#    # Calculate the proportion of each species at each time step
-#	species.proportions <- sweep(x@tracks, 1, population.per.time, FUN="/")
+    #    # Calculate the proportion of each species at each time step
+    #	species.proportions <- sweep(x@tracks, 1, population.per.time, FUN="/")
 
-#    # Expected proportions are the proportions at the last time step
-#	expected.species.proportions.per.time <- rBind(rep(NA, nspecies(x)), species.proportions[1:(nrow(species.proportions) - 1),])
+    #    # Expected proportions are the proportions at the last time step
+    #	expected.species.proportions.per.time <- rBind(rep(NA, nspecies(x)), species.proportions[1:(nrow(species.proportions) - 1),])
 
-#    # Substact expected from observed
-#	diff.expected <- (species.proportions - expected.species.proportions.per.time)
-#	diff.expected[diff.expected < 0] <- 0
+    #    # Substact expected from observed
+    #	diff.expected <- (species.proportions - expected.species.proportions.per.time)
+    #	diff.expected[diff.expected < 0] <- 0
 
-#    # square any positive result
-#	diff.expected <- diff.expected ^ 2
-#
-#    # scale, if requested via the 2ne argument
-#	if(identical(scale, TRUE)) diff.expected <- diff.expected * population.per.time
+    #    # square any positive result
+    #	diff.expected <- diff.expected ^ 2
+    #
+    #    # scale, if requested via the 2ne argument
+    #	if(identical(scale, TRUE)) diff.expected <- diff.expected * population.per.time
 	
-#    # return the result as another popdy object
-#    output <- as(x, "popdat")
-#	output@tracks <- as(diff.expected, "dgCMatrix")
-#	return(output)
+    #    # return the result as another popdy object
+    #    output <- as(x, "popdat")
+    #	output@tracks <- as(diff.expected, "dgCMatrix")
+    #	return(output)
 }
 
 
