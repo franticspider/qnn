@@ -40,6 +40,6 @@ popdyplot(q,ylab="Bray-Curtis")
 
 ##References.
 
-***A quantitative measure of non-neutral evolutionary activity for systems that exhibit intrinsic fitness***
-**Alastair Droop and Simon Hickinbotham**
+*A quantitative measure of non-neutral evolutionary activity for systems that exhibit intrinsic fitness*,
+**Alastair Droop and Simon Hickinbotham**,  
 ALife XIII, Michigan, USA, July 2012. MIT Press, 2012
