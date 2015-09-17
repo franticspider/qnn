@@ -1,7 +1,9 @@
 Package: qnn
 Title: Calculte Quantitative Non-Neutral (QNN) Evolutionary Activity
 Version: 0.0.0.1
-Authors@R: c(person("Alastair", "Droop", , "A.P.Droop@leeds.ac.uk", role = c("aut", "cre")),person("Simon", "Hickinbotham", , "sjh518@york.ac.uk", role = c("aut", "cre")))
+Authors@R: c(
+    person("Alastair", "Droop", , "A.P.Droop@leeds.ac.uk", role = c("aut")) ,
+    person("Simon", "Hickinbotham", , "sjh518@york.ac.uk", role = c("aut", "cre")) )
 Description: parses 'popdy' data files and calculates qnn activity. qnn activity is calculated per species per time step, and can be summarised into a value that reflects the evolutionary activity for all species at all timesteps.
 Depends: R (>= 3.0.2)
 License: GPL-3

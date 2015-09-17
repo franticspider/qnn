@@ -1,3 +1,10 @@
+##################################################################################
+#' Gets Bray Curtis activity for a popdy data object
+#'
+#' @param x a popdy data object
+#' @param scale flag to specify whether the output is to be scaled by the population 
+#' @keywords qnn evolution
+#' @export
 bray.curtis.activity <- function(x, scale=TRUE){
 
 	#we might not need to do this, but it keeps things clear:
@@ -27,10 +34,18 @@ bray.curtis.activity <- function(x, scale=TRUE){
 		result <- result * population.per.time
 	}
 
+
+	output <- as(x, "popdat")
+
+    # return the result as another popdy object
+	output@tracks <- Matrix(bc, sparse = TRUE)
+
+
+
 	#we can't put the result back in a popdy structure because bray-curtis is a community-level measure..
 	#output <- as(x, "popdat")
 	#output@tracks <- as(result, "dgCMatrix")
-	return(result)
+	return(output)
 	
 
 }

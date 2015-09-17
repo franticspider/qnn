@@ -1,7 +1,7 @@
 
 
 
-
+#TODO: I don't know what this function is for anymore! - delete if obsolete - use popdyplot below
 plot.popdy <- function(x, col.fun=rainbow){
 
 
@@ -29,14 +29,20 @@ plot.popdy <- function(x, col.fun=rainbow){
 }
 
 
-plot.popdy2 <-
-# setGeneric("plot")
-# setMethod("plot", signature(x="popcount", y="missing"), 
-# function(x, col=rainbow, xlim=range(times(x)), ylim=c(0, max(tracks(x))), 
-# xlab="Time", ylab="Count", epochs=NA, epoch.col=cm.colors, epoch.border=NA, 
-# plot.zero=FALSE, lines=TRUE, ...)
-function(x, xlab="Time", ylab="Count", epochs=NA, epoch.col=cm.colors, epoch.border=NA, 
-plot.zero=FALSE, lines=TRUE, col.fun=rainbow)
+##################################################################################
+#' plots a  popdy data object
+#'
+#' @param x a popdy data object
+#' @param xlab The label on the x-axis (default = "Time") 
+#' @param ylab The label on the y-axis (default = "Count") 
+#' @param plot.zero flag to plot zero-valued columns (default = FALSE) ) 
+#' @param col.fun  specifies the method for generating the line colours (default = "rainbow") ) 
+#' @keywords qnn evolution
+#' @export
+popdyplot <-
+function(x, xlab="Time", ylab="Count", #epochs=NA, epoch.col=cm.colors, epoch.border=NA, 
+plot.zero=FALSE, #lines=TRUE, 
+col.fun=rainbow)
 {
     xlim = range(x@times)
     ylim = c(0, max(x@tracks))

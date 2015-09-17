@@ -20,10 +20,12 @@ We recommend installation via devtools, but alternatively, you can download the 
 x <- read.popdy("popdyeg.dat")
 c <- ecea.activity(x)
 q <- qnn.activity(x)
-par(mfrow=c(3,1))
-plot.popdy2(x)
-plot.popdy2(c,ylab="ECEA")
-plot.popdy2(q,ylab="QNN")
+b <- bray.curtis.activity(x)
+par(mfrow=c(4,1))
+popdyplot(x)
+popdyplot(c,ylab="ECEA")
+popdyplot(q,ylab="QNN")
+popdyplot(q,ylab="Bray-Curtis")
 ```
 
 
@@ -37,3 +39,7 @@ plot.popdy2(q,ylab="QNN")
 
 
 ##References.
+
+***A quantitative measure of non-neutral evolutionary activity for systems that exhibit intrinsic fitness***
+**Alastair Droop and Simon Hickinbotham**
+ALife XIII, Michigan, USA, July 2012. MIT Press, 2012
