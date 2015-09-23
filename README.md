@@ -17,6 +17,7 @@ We recommend installation via devtools, but alternatively, you can download the 
 ##Examples
 
 ```R
+require("qnn")
 x <- read.popdy("popdyeg.dat")
 c <- ecea.activity(x)
 q <- qnn.activity(x)
