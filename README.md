@@ -32,12 +32,9 @@ popdyplot(q,ylab="Bray-Curtis")
 
 ##TODO:
 
-###General tidy up of the package
-
-
-
-###Add the EClark measure
-
+1. General tidy up of the package
+- Incorporate C version of qnn measure
+- Add external C makefile etc. for direct use in C code
 
 ##References.
 
