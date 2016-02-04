@@ -33,7 +33,11 @@ Of course, you'll only need to do that once for your R installation. After that,
 
 ```R
 require("qnn")
-x <- read.popdy("popdyeg.dat")
+
+#Get the file path of example data set:
+filename <- system.file("extdata", "example01.dat", package="qnn")
+
+x <- read.popdy(filename)
 c <- ecea.activity(x)
 q <- qnn.activity(x)
 b <- bray.curtis.activity(x)
