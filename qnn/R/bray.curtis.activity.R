@@ -35,7 +35,9 @@ bray.curtis.activity <- function(x, scale=TRUE){
 	}
 
     #
-	output <- as(x, "popdat")
+    #TODO: Check whether popdat or popdy is the way to go!
+	#output <- as(x, "popdat")
+	output <- as(x, "popdy")
 
 
     # TODO: 

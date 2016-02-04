@@ -13,6 +13,7 @@ suppressPackageStartupMessages(library(Matrix, quietly=TRUE))
 ############
 #sink("tmp.txt")
 
+#TODO: Dunno why a popdy contains a popdat....!
 setClass("popdy", representation(tracks="dgCMatrix", times="numeric"))
 setClass("popdat", contains="popdy")
 
@@ -150,7 +151,10 @@ qnn.activity <- function(x, scale=FALSE){
 
     # scale, if requested as an argument
 	if(identical(scale, TRUE)) diff.expected <- diff.expected * population.per.time
-	output <- as(x, "popdat")
+	
+	#TODO: Check which is best to use: popdat or popdy..?
+	#output <- as(x, "popdat")	
+	output <- as(x, "popdy")
 
     # return the result as another popdy object
 	output@tracks <- as(diff.expected, "dgCMatrix")
