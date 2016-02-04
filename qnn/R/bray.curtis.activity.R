@@ -34,17 +34,12 @@ bray.curtis.activity <- function(x, scale=TRUE){
 		result <- result * population.per.time
 	}
 
-    #
     #TODO: Check whether popdat or popdy is the way to go!
 	#output <- as(x, "popdat")
 	output <- as(x, "popdy")
-
-
-    # TODO: 
-    # return the result as another popdy object
-	output@tracks <- Matrix(bc, sparse = TRUE)
-
-
+	
+	#   put result as the tracks:
+	output@tracks <- Matrix(result, sparse = TRUE)
 
 	#we can't put the result back in a popdy structure because bray-curtis is a community-level measure..
 	#output <- as(x, "popdat")
