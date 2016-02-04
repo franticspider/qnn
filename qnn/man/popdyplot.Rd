@@ -5,7 +5,8 @@
 \title{plots a  popdy data object}
 \usage{
 popdyplot(x, xlab = "Time", ylab = "Count", plot.zero = FALSE,
-  col.fun = rainbow)
+  col.fun = rainbow, colours = NA, minpop = 1, logrey = F, xlim = NA,
+  smooth = 0)
 }
 \arguments{
 \item{x}{a popdy data object}
@@ -17,6 +18,12 @@ popdyplot(x, xlab = "Time", ylab = "Count", plot.zero = FALSE,
 \item{plot.zero}{flag to plot zero-valued columns (default = FALSE) )}
 
 \item{col.fun}{specifies the method for generating the line colours (default = "rainbow") )}
+
+\item{minpop}{the minimum population size for a species to be plotted}
+
+\item{logrey}{plots small populations in grey}
+
+\item{smooth}{values greater than zero do loess smoothing}
 }
 \description{
 plots a  popdy data object

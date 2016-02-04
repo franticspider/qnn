@@ -4,7 +4,6 @@
 #TODO: I don't know what this function is for anymore! - delete if obsolete - use popdyplot below
 plot.popdy <- function(x, col.fun=rainbow){
 
-
 	time.lim <- range(x$time)
 	valid.species <- unique(x$species)
 	colours <- col.fun(length(valid.species))
@@ -24,8 +23,6 @@ plot.popdy <- function(x, col.fun=rainbow){
 	title(xlab=expression(time%*%10^3))
 	box()
 	# dev.off()
-
-
 }
 
 
@@ -37,27 +34,62 @@ plot.popdy <- function(x, col.fun=rainbow){
 #' @param ylab The label on the y-axis (default = "Count") 
 #' @param plot.zero flag to plot zero-valued columns (default = FALSE) ) 
 #' @param col.fun  specifies the method for generating the line colours (default = "rainbow") ) 
+#' @param minpop the minimum population size for a species to be plotted
+#' @param logrey plots small populations in grey
+#' @param smooth values greater than zero do loess smoothing
 #' @keywords qnn evolution
 #' @export
 popdyplot <-
 function(x, xlab="Time", ylab="Count", #epochs=NA, epoch.col=cm.colors, epoch.border=NA, 
 plot.zero=FALSE, #lines=TRUE, 
-col.fun=rainbow)
+col.fun=rainbow, colours = NA,
+minpop=1, logrey = F, xlim = NA,smooth=0)
 {
-    xlim = range(x@times)
+	if(identical(xlim,NA))
+    	xlim = range(x@times)
     ylim = c(0, max(x@tracks))
-	colours <- col.fun(ncol(x@tracks))
+    
+    #if a palette hasn't been specified...use a rainbow
+    if(identical(colours,NA))
+		colours <- col.fun(ncol(x@tracks))
 
 	plot(NA, xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab     )#, ...)
 
     #sapply(1:, function(i){
-
-    for(j in 1:ncol(x@tracks)){
-		lines(x=x@times, y=x@tracks[,j], col=colours[j])
+	
+	#plot the small populations:
+	if(logrey){
+	    for(j in 1:ncol(x@tracks)){
+    		if(max(x@tracks[,j] < minpop)){
+				lines(x=x@times, y=x@tracks[,j], col="grey")
+			}	
+		}
 	}
 
 
+    for(j in 1:ncol(x@tracks)){
+    	if(max(x@tracks[,j] >= minpop)){
+    		#TODO: Need a 'verbose' flag
+    		message(sprintf("Plotting run %d with colour %s",j,colours[j]))
+			if(smooth>0){
+				#message("making Loess data")
+				lx<-x@times
+				ly<-x@tracks[,j]
+				#message("Calculating Loess fit")
+				lo <- loess(ly ~ lx,span=smooth)
+				#message("Plotting Loess fit")
+				lines(lx,lo$fitted, col=colours[j],lwd = 2)
+				#message("done")
+			}
+			else{
+				lines(x=x@times, y=x@tracks[,j], col=colours[j])
+			}
+		}
+	}
 
+
+#THIS IS APD'S EPOCH PLOTTING CODE - 
+# TODO: GET THIS WORKING AGAIN.
 #	if(!missing(epochs)){
 #		if(is.function(epoch.col)) 
 #            epoch.colours <- epoch.col(nrow(epochs)) 

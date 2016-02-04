@@ -34,9 +34,11 @@ bray.curtis.activity <- function(x, scale=TRUE){
 		result <- result * population.per.time
 	}
 
-
+    #
 	output <- as(x, "popdat")
 
+
+    # TODO: 
     # return the result as another popdy object
 	output@tracks <- Matrix(bc, sparse = TRUE)
 
