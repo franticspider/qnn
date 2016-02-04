@@ -2,10 +2,25 @@
 R package for measuring evolutionary activity, so called becuase it is a "Quantitative, Non-Neutral" measure. This means that the analysis yields a number that can be used to compare activity between samples, and that the measure is based on the idea that any non-neutral evolutionary change will be detected. 
 
 
-##Installation
+## Installing from the R command-line
 
-We recommend installation via devtools, but alternatively, you can download the files in the R subdirectory as you need them.
+You'll need the `devtools` package to install q2e so either do this:
 
+ `> require("devtools")`
+ 
+or this:
+ 
+ `> install.packages("devtools")`
+ 
+ `> library(devtools)`
+ 
+Then you can use the `install_github` function to install q2e:
+ 
+ `> install_github("franticspider/qnn")`
+ 
+Of course, you'll only need to do that once for your R installation. After that, whenever you want to use q2e, simply enter: 
+ 
+ `> library("q2e")`
 
 
 ##Test Datasets
