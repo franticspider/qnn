@@ -16,20 +16,20 @@ or this:
  
 Then you can use the `install_github` function to install q2e:
  
- `> install_github("franticspider/qnn")`
+ `> install_github("franticspider/qnn/qnn")`
  
-Of course, you'll only need to do that once for your R installation. After that, whenever you want to use q2e, simply enter: 
+Of course, you'll only need to do that once for your R installation. After that, whenever you want to use qnn, simply enter: 
  
- `> library("q2e")`
+ `> library("qnn")`
 
 
-##Test Datasets
+## Test Datasets
 
 1. example01 - data shown in fig 1 of paper [1]
 - example02 - Ed Clark data set
 - example03 - Ed Clark data set
 
-##Examples
+## Examples
 
 ```R
 require("qnn")
